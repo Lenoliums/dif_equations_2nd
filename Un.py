@@ -17,7 +17,7 @@ class Dif_eq:
         self.x0=x_0
         self.x1=x_1
         self.h=h
-        self.D, self.lambda1, self.lambda2, self.C1, self.C2 = self.analitic()
+        self.lambda1, self.lambda2, self.C1, self.C2 = self.analitic()
 
 
     def change(self, h=None,m=None, p=None, k=None, x1=None, x0=None, y0=None):
@@ -85,19 +85,11 @@ class Dif_eq:
     
     def analitic(self):
         D=self.p*self.p-4*self.k*self.m
-        if D>=0:
-            lambda1=(sqrt(D)-self.p)/(2*self.m)
-            lambda2=-(sqrt(D)+self.p)/(2*self.m)
-            C1=(lambda2*self.y0[0]-self.y0[1])/((lambda2-lambda1)*exp(lambda1*self.x0))
-            C2=(self.y0[1]-lambda1*self.y0[0])/((lambda2-lambda1)*exp(lambda2*self.x0))
-            return(True, lambda1, lambda2, C1, C2)
-        else:
-            alpfa=-self.p/(2*self.m)
-            beta=sqrt(abs(D))/(2*self.m)
-            C1=(-self.y0[1]+self.y0[0]*(cos(beta*self.x0)*beta*exp(alpfa*self.x0)+alpfa))/(beta*exp(alpfa*self.x0)*(cos(beta*self.x0)**2*exp(alpfa*self.x0)+sin(beta*self.x0)))
-            C2=(self.y0[1]-alpfa*self.y0[0]+beta*exp(alpfa*self.x0)*C1*sin(beta*self.x0))/(cos(beta*self.x0)*beta*exp(alpfa*self.x0))
-
-        return(False, alpfa, beta, C1, C2)
+        lambda1=(sqrt(D)-self.p)/(2*self.m)
+        lambda2=-(sqrt(D)+self.p)/(2*self.m)
+        C1=(lambda2*self.y0[0]-self.y0[1])/((lambda2-lambda1)*exp(lambda1*self.x0))
+        C2=(self.y0[1]-lambda1*self.y0[0])/((lambda2-lambda1)*exp(lambda2*self.x0))
+        return(lambda1, lambda2, C1, C2)
     
     def y_true(self, x):
         if self.D:
