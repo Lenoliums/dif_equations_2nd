@@ -92,9 +92,7 @@ class Dif_eq:
         return(lambda1, lambda2, C1, C2)
     
     def y_true(self, x):
-        if self.D:
-            return(self.C1*exp(self.lambda1*x)+self.C2*exp(self.lambda2*x))
-        return(exp(self.lambda1*x)*(self.C1*cos(self.lambda2*x)+self.C2*sin(self.lambda2*x)))
+        return(self.C1*exp(self.lambda1*x)+self.C2*exp(self.lambda2*x))
     
     def B_dense(self, i):
         return([i- 5/6 * i**2, 4/6*i**2, 1/6 * i**2])
